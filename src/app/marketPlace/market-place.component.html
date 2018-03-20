@@ -1,0 +1,28 @@
+<div class="wrapper">
+  <div class="page-header page-header-xs" data-parallax="true">
+    <div class="filter"></div>
+  </div>
+  <div class="section text-center">
+    <div class="row">
+      <div class="col-lg-3" *ngFor="let participant of participantArray;let i = index">
+        <div class="card" style="width: 18rem;">
+          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+          <div class="card-body">
+            <p class="card-text">{{participant.name}}.</p>
+            <h5>
+              <b> {{participant.price}} </b>
+            </h5>
+            <p>ether</p>
+            <a class="btn btn-primary" (click)="buyParticipant(i, participant.price)">Buy</a>
+          </div>
+          <!-- <div class="card-body">
+            <h5 class="card-title">Crypto Bangaluru challengers</h5>
+            <p class="card-text">The Crypto participant.</p>
+            <a class="btn btn-primary" (click)="showPrice(0)">Price</a>
+            <a class="btn btn-primary" (click)="buyParticipant(0)">Buy</a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
