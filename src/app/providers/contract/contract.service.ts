@@ -35,7 +35,7 @@ export class ContractService {
       this._web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
     }
 
-    this._contract = this._web3.eth.contract(contractAbi).at('0x439be59281c3fd5dda8e5b7a354f6cb637065850');
+    this._contract = this._web3.eth.contract(contractAbi).at('0x3e6d9014774ff3eacc6a5ba6db6095d660eca3c3');
     // event handeling
     const tokenPurchased = this.tokenPurchased
     this._contract.TokenSold().watch(function (error, result) {
@@ -126,5 +126,18 @@ export class ContractService {
         return resolve(result);
       });
     }) as Promise<number>;
+  }
+
+  payout(): void {
+    console.log('calling payout');
+    this._contract.payout(
+      '0x3d4079B588630918f8966460CdB0908d71A551a3',
+      { from: '0x3d4079B588630918f8966460CdB0908d71A551a3', gas: 300000 },
+      (err, result) => {
+        if (err != null) {
+          console.log('err' + err);
+        }
+        console.log('result for transfer' + result);
+      });
   }
 }
