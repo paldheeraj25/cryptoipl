@@ -12,7 +12,14 @@ export class HomeComponent implements OnInit {
         middle: false,
         right: false
     };
+
+    staticMock: any = {};
     constructor() { }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.staticMock = {
+            title: 'Crypto IPL',
+            presentors: 'PRESENTED BY CRYPTO IPL TEAM'
+        }
+    }
 }

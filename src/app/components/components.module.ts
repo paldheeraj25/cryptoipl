@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -6,6 +7,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
 
 import { BasicelementsComponent } from './basicelements/basicelements.component';
+import { InformationComponent } from './information/information.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { TypographyComponent } from './typography/typography.component';
 import { NucleoiconsComponent } from './nucleoicons/nucleoicons.component';
@@ -25,6 +27,7 @@ import { NgbdModalContent } from './modal/modal.component';
     declarations: [
         ComponentsComponent,
         BasicelementsComponent,
+        InformationComponent,
         NavigationComponent,
         TypographyComponent,
         NucleoiconsComponent,
@@ -33,6 +36,6 @@ import { NgbdModalContent } from './modal/modal.component';
         NgbdModalContent
     ],
     entryComponents: [NgbdModalContent],
-    exports:[ ComponentsComponent ]
+    exports: [ ComponentsComponent ]
 })
 export class ComponentsModule { }
