@@ -1,6 +1,8 @@
-import { Component, HostListener, NgZone, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, HostListener, NgZone, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { ContractService } from '../providers/contract/contract.service';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
+import { OwnerModalComponent } from './owner-modal.component';
 
 
 @Component({
@@ -14,7 +16,11 @@ export class MarketPlaceComponent implements OnInit {
   public totalParticipant: Observable<number>;
   public participantArray: any[] = [];
 
-  constructor(private contractService: ContractService, private ref: ChangeDetectorRef) {
+  constructor(
+    private contractService: ContractService,
+    private ref: ChangeDetectorRef,
+    private modalService: NgbModal
+  ) {
     this.contractService.tokenPurchased.subscribe((value: any) => {
       // console.log('constructer');
       // console.log(value);
@@ -75,5 +81,16 @@ export class MarketPlaceComponent implements OnInit {
       return participant;
       // console.log(result[0] + ' price is: ' + result[1].toString() + ' wei');
     });
+  }
+
+  showOwner(owner: string) {
+    // OwnerModalComponent
+    const modalRef = this.modalService.open(OwnerModalComponent);
+    modalRef.componentInstance.address = owner;
+  }
+
+  payout(): any {
+    // call payout method in contract.
+    this.contractService.payout();
   }
 }

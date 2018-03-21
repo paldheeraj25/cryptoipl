@@ -2,7 +2,10 @@
   <div class="page-header page-header-xs" data-parallax="true">
     <div class="filter"></div>
   </div>
-  <div class="section text-center">
+  <div class="section text-center p-r-21">
+    <div class="row">
+      <button type="button" class="btn btn-outline-success btn-round" (click)="payout()">Success</button>
+    </div>
     <div class="row">
       <div class="col-lg-3" *ngFor="let participant of participantArray;let i = index">
         <div class="card" style="width: 18rem;">
@@ -10,9 +13,9 @@
           <div class="card-body">
             <p class="card-text">{{participant.name}}.</p>
             <h5>
-              <b> {{participant.price}} </b>
+              <b> {{participant.price | number: '1.4-4'}} ethers</b>
             </h5>
-            <p>ether</p>
+            <a class="btn btn-primary" placement="top" ngbPopover="" popoverTitle="{{participant.owner}}">Owner</a>
             <a class="btn btn-primary" (click)="buyParticipant(i, participant.price)">Buy</a>
           </div>
           <!-- <div class="card-body">

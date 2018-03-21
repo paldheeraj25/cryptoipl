@@ -17,6 +17,7 @@ import { HomeModule } from './home/home.module';
 import { MarketPlaceComponent } from './marketPlace/market-place.component';
 // services
 import { ContractService } from './providers/contract/contract.service';
+import { OwnerModalComponent } from './marketPlace/owner-modal.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ContractService } from './providers/contract/contract.service';
     ProfileComponent,
     NavbarComponent,
     FooterComponent,
-    MarketPlaceComponent
+    MarketPlaceComponent,
+    OwnerModalComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,9 @@ import { ContractService } from './providers/contract/contract.service';
     HomeModule
   ],
   providers: [ContractService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    OwnerModalComponent
+  ]
 })
 export class AppModule { }
