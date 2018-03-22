@@ -35,7 +35,7 @@ export class ContractService {
       this._web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
     }
 
-    this._contract = this._web3.eth.contract(contractAbi).at('0x3e6d9014774ff3eacc6a5ba6db6095d660eca3c3');
+    this._contract = this._web3.eth.contract(contractAbi).at('0x631cd5c941905e0ae3801fbc12497ffb319f17fd');
     // event handeling
     const tokenPurchased = this.tokenPurchased
     this._contract.TokenSold().watch(function (error, result) {
@@ -48,7 +48,7 @@ export class ContractService {
     });
   }
 
-  private async getAccount(): Promise<string> {
+  public async getAccount(): Promise<string> {
     if (this._account == null) {
       this._account = await new Promise((resolve, reject) => {
         this._web3.eth.getAccounts((err, accs) => {
@@ -62,7 +62,7 @@ export class ContractService {
             );
             return;
           }
-          resolve(accs[0]);
+          return resolve(accs[0]);
         })
       }) as string;
       this._web3.eth.defaultAccount = this._account;
@@ -105,7 +105,7 @@ export class ContractService {
       this._contract.purchase(
         id,
         // to-do: get from and value dynamically.
-        { from: '0x3d4079B588630918f8966460CdB0908d71A551a3', gas: 300000, value: this._web3.toWei(price, 'ether') },
+        { from: this._web3.eth.defaultAccount, gas: 300000, value: this._web3.toWei(price, 'ether') },
         (err, result) => {
           if (err != null) {
             return reject(err);
@@ -129,15 +129,28 @@ export class ContractService {
   }
 
   payout(): void {
-    console.log('calling payout');
     this._contract.payout(
       '0x3d4079B588630918f8966460CdB0908d71A551a3',
-      { from: '0x3d4079B588630918f8966460CdB0908d71A551a3', gas: 300000 },
+      { from: this._web3.eth.defaultAccount, gas: 300000 },
       (err, result) => {
         if (err != null) {
           console.log('err' + err);
         }
         console.log('result for transfer' + result);
       });
+  }
+
+  public async tokensOfOwner(): Promise<any> {
+
+    return new Promise((resolve, reject) => {
+      this._contract.tokensOfOwner(this._web3.eth.defaultAccount,
+        { from: this._web3.eth.defaultAccount, gas: 300000 },
+        (err, result) => {
+          if (err != null) {
+            return reject(err);
+          }
+          return resolve(result);
+        });
+    }) as Promise<any>;
   }
 }

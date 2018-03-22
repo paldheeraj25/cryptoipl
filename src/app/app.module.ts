@@ -17,7 +17,9 @@ import { HomeModule } from './home/home.module';
 import { MarketPlaceComponent } from './marketPlace/market-place.component';
 // services
 import { ContractService } from './providers/contract/contract.service';
+
 import { OwnerModalComponent } from './marketPlace/owner-modal.component';
+import { ModalPopupComponent } from './shared/modalPopup/modalPopup.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { OwnerModalComponent } from './marketPlace/owner-modal.component';
     NavbarComponent,
     FooterComponent,
     MarketPlaceComponent,
-    OwnerModalComponent
+    OwnerModalComponent,
+    ModalPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { OwnerModalComponent } from './marketPlace/owner-modal.component';
   providers: [ContractService],
   bootstrap: [AppComponent],
   entryComponents: [
-    OwnerModalComponent
+    OwnerModalComponent,
+    ModalPopupComponent
   ]
 })
 export class AppModule { }

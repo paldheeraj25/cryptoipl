@@ -21,11 +21,13 @@ export class MarketPlaceComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private modalService: NgbModal
   ) {
+    // event for token purchased need to be configured.
     this.contractService.tokenPurchased.subscribe((value: any) => {
       // console.log('constructer');
       // console.log(value);
     });
     this.contractService.totalParticipant.subscribe((value) => {
+      this.participantArray = [];
       for (let i = 0; i < parseInt(value, 10); i++) {
         this.contractService.getParticipant(i).then(result => {
           const participant: { name: string, price: string, owner: string } = { name: '', price: '', owner: '' };
@@ -35,7 +37,7 @@ export class MarketPlaceComponent implements OnInit {
           this.participantArray.push(participant);
           this.ref.detectChanges();
           // return participant;
-          console.log(result[0] + ' price is: ' + result[1].toString() + ' wei');
+          // console.log(result[0] + ' price is: ' + result[1].toString() + ' wei');
         });
       }
       // console.log(this.participantArray);
