@@ -9,6 +9,7 @@ import { SignupComponent } from './signup/signup.component';
 import { LandingComponent } from './landing/landing.component';
 import { NucleoiconsComponent } from './components/nucleoicons/nucleoicons.component';
 import { MarketPlaceComponent } from './marketPlace/market-place.component';
+import { MyTeamsComponent } from './my-teams/my-teams.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'landing', component: LandingComponent },
   { path: 'nucleoicons', component: NucleoiconsComponent },
   { path: 'market-place', component: MarketPlaceComponent },
+  { path: 'my-teams', component: MyTeamsComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
