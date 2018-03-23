@@ -89,4 +89,8 @@ export class NavbarComponent implements OnInit {
       modalRef.componentInstance.teams = result;
     });
   }
+
+  payout() {
+    this.contractService.payout();
+  }
 }
