@@ -15,16 +15,28 @@ export class MarketPlaceComponent implements OnInit {
 
   public totalParticipant: Observable<number>;
   public participantArray: any[] = [];
+  public alerts: Array<IAlert> = [];
+  private backup: Array<IAlert>;
+  public purchaseSuccess: boolean;
+  public purchaseFailure: boolean;
+  public newOwner: string;
+  public newPrice: string;
 
   constructor(
     private contractService: ContractService,
     private ref: ChangeDetectorRef,
     private modalService: NgbModal
   ) {
+    this.purchaseSuccess = true;
+    this.purchaseFailure = true;
     // event for token purchased need to be configured.
     this.contractService.tokenPurchased.subscribe((value: any) => {
-      // console.log('constructer');
-      // console.log(value);
+      console.log(value);
+      if (value != null) {
+        this.newOwner = value.name;
+        this.newPrice = value.newPrice.toString();
+        this.ref.detectChanges();
+      }
     });
     this.contractService.totalParticipant.subscribe((value) => {
       this.participantArray = [];
@@ -50,6 +62,18 @@ export class MarketPlaceComponent implements OnInit {
       // console.log(balance);
     });
     this.totalParticipant = this.getTotalSupply();
+
+    this.alerts.push({
+      id: 1,
+      type: 'success',
+      message: 'This is an success alert',
+    }, {
+        id: 2,
+        type: 'danger',
+        message: 'This is a failure alert',
+        icon: 'nc-bell-55'
+      });
+    this.backup = this.alerts.map((alert: IAlert) => Object.assign({}, alert));
   }
 
   showPrice(id: number): any {
@@ -62,6 +86,10 @@ export class MarketPlaceComponent implements OnInit {
   buyParticipant(index: number, price: number) {
     return this.contractService.buyParticipant(index, price).then(result => {
       // console.log(result);
+      this.purchaseSuccess = false;
+    }).catch(error => {
+      console.log(error);
+      this.purchaseFailure = false;
     });
   }
 
@@ -95,4 +123,19 @@ export class MarketPlaceComponent implements OnInit {
     // call payout method in contract.
     this.contractService.payout();
   }
+
+  public closeSuccessAlert() {
+    this.purchaseSuccess = true;
+  }
+  public closeFailureAlert() {
+    this.purchaseFailure = true;
+  }
 }
+
+export interface IAlert {
+  id: number;
+  type: string;
+  message: string;
+  icon?: string;
+}
+

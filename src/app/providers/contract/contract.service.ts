@@ -38,10 +38,12 @@ export class ContractService {
     this._contract = this._web3.eth.contract(contractAbi).at('0xb42ea1007cfeb3a41117204ac7f1ac45ff89140d');
     // event handeling
     const tokenPurchased = this.tokenPurchased
+    const _this = this;
     this._contract.TokenSold().watch(function (error, result) {
       if (!error) {
         // console.log('new owner:', result.args);
-        tokenPurchased.next(result.args.newOwner);
+        result.args.newPrice = _this._web3.fromWei(result.args.newPrice, 'ether');
+        tokenPurchased.next(result.args);
       } else {
         // console.error('error: ' + error);
       }

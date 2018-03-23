@@ -4,6 +4,38 @@
   </div>
   <div class="section text-center p-r-21">
     <div class="row">
+      <div class="col-lg-12">
+        <p [hidden]="purchaseSuccess">
+          <ngb-alert [type]="'success'" [dismissible]="false">
+            <div class="container">
+              <ng-container>
+                <i class="nc-icon nc-single-02"></i>
+              </ng-container>
+
+              Congratulation you are new Owner of {{newOwner}} and new price is {{newPrice}}.
+              <button type="button" name="button" class="close" (click)="closeSuccessAlert()">
+                <i class="nc-icon nc-simple-remove"></i>
+              </button>
+            </div>
+          </ngb-alert>
+        </p>
+        <p [hidden]="purchaseFailure">
+          <ngb-alert [type]="'danger'" [dismissible]="false">
+            <div class="container">
+              <ng-container>
+                <i class="nc-icon nc-bell-55"></i>
+              </ng-container>
+
+              Your transaction is failed, check your transaction detail in metamask or if you already own the team.
+              <button type="button" name="button" class="close" (click)="closeFailureAlert()">
+                <i class="nc-icon nc-simple-remove"></i>
+              </button>
+            </div>
+          </ngb-alert>
+        </p>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-3" *ngFor="let participant of participantArray;let i = index">
         <div class="card" style="width: 18rem;">
           <img class="card-img-top" src="assets/img/player/{{participant.name}}.jpg" alt="Card image cap">
