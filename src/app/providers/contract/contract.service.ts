@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 import * as Web3 from 'web3';
 import { Observable } from 'rxjs/Observable';
@@ -9,9 +9,10 @@ declare let require: any;
 declare let window: any;
 
 const contractAbi = require('./contract.api.json');
+const ethAddress = '0xeaf3e3cf0978dbd6882df839e0ade317e6963745';
 
 @Injectable()
-export class ContractService {
+export class ContractService implements OnInit {
 
   private _account: string = null;
   private _web3: any;
@@ -25,6 +26,10 @@ export class ContractService {
     this.initializeWeb3();
   }
 
+  ngOnInit() {
+    // this.initializeWeb3();
+  }
+
   initializeWeb3() {
     if (typeof window.web3 !== 'undefined') {
       // Use Mist/MetaMask's provider
@@ -35,7 +40,8 @@ export class ContractService {
       this._web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
     }
 
-    this._contract = this._web3.eth.contract(contractAbi).at('0x631cd5c941905e0ae3801fbc12497ffb319f17fd');
+    this._contract = this._web3.eth.contract(contractAbi).at(ethAddress);
+    console.log(this._web3);
     // event handeling
     const tokenPurchased = this.tokenPurchased
     this._contract.TokenSold().watch(function (error, result) {
@@ -143,6 +149,7 @@ export class ContractService {
   public async tokensOfOwner(): Promise<any> {
 
     return new Promise((resolve, reject) => {
+      console.log(this._web3.eth.defaultAccount);
       this._contract.tokensOfOwner(this._web3.eth.defaultAccount,
         { from: this._web3.eth.defaultAccount, gas: 300000 },
         (err, result) => {

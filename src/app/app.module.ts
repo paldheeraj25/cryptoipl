@@ -17,9 +17,12 @@ import { HomeModule } from './home/home.module';
 import { MarketPlaceComponent } from './marketPlace/market-place.component';
 // services
 import { ContractService } from './providers/contract/contract.service';
+import { UtilityService } from './providers/utility.service';
 
 import { OwnerModalComponent } from './marketPlace/owner-modal.component';
 import { ModalPopupComponent } from './shared/modalPopup/modalPopup.component';
+import { MyTeamsComponent } from './my-teams/my-teams.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,17 +34,19 @@ import { ModalPopupComponent } from './shared/modalPopup/modalPopup.component';
     FooterComponent,
     MarketPlaceComponent,
     OwnerModalComponent,
-    ModalPopupComponent
+    ModalPopupComponent,
+    MyTeamsComponent
   ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
     FormsModule,
     RouterModule,
+    HttpClientModule,
     AppRoutingModule,
     HomeModule
   ],
-  providers: [ContractService],
+  providers: [ContractService, UtilityService],
   bootstrap: [AppComponent],
   entryComponents: [
     OwnerModalComponent,
