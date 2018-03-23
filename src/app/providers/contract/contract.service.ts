@@ -35,7 +35,7 @@ export class ContractService {
       this._web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
     }
 
-    this._contract = this._web3.eth.contract(contractAbi).at('0x631cd5c941905e0ae3801fbc12497ffb319f17fd');
+    this._contract = this._web3.eth.contract(contractAbi).at('0xb42ea1007cfeb3a41117204ac7f1ac45ff89140d');
     // event handeling
     const tokenPurchased = this.tokenPurchased
     this._contract.TokenSold().watch(function (error, result) {

@@ -53,15 +53,19 @@
             <img src="assets/img/ether_logo.svg" class="ui image" style="width: 35px; height: 35px;">
           </a>
         </li>
+        <li class="nav-item">
+          <a href="javascript:void(0)" class="nav-link" (click)="payout()">
+            <i class="nc-icon nc-button-power"></i> Payout</a>
+        </li>
 
         <!-- <li class="nav-item" *ngIf="isHome()">
                     <a href="https://www.creative-tim.com/product/paper-kit-2-pro?ref=pk2-free-local" target="_blank" class="btn btn-danger btn-round disabled">Upgrade to Pro</a>
                 </li> -->
-        <li class="nav-item" *ngIf="!isHome()">
+        <!-- <li class="nav-item" *ngIf="!isHome()">
           <a [routerLink]="['/home']" *ngIf="!isDocumentation()" class="nav-link">
             <i class="nc-icon nc-layout-11"></i>Components</a>
           <a [routerLink]="['/home']" *ngIf="isDocumentation()" class="nav-link">Back to Kit</a>
-        </li>
+        </li> -->
         <li class="nav-item" *ngIf="isDocumentation()">
           <a href="https://github.com/creativetimofficial/pk-free-angular/issues?ref=pk2-free-local" target="_blank" class="nav-link">Have an issue</a>
         </li>

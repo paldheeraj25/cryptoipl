@@ -31,7 +31,7 @@ import { ModalPopupComponent } from './shared/modalPopup/modalPopup.component';
     FooterComponent,
     MarketPlaceComponent,
     OwnerModalComponent,
-    ModalPopupComponent
+    ModalPopupComponent,
   ],
   imports: [
     BrowserModule,
