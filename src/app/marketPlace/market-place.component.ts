@@ -1,4 +1,4 @@
-import { Component, HostListener, NgZone, OnInit, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, HostListener, NgZone, OnInit, ChangeDetectorRef, Input, OnDestroy } from '@angular/core';
 import { ContractService } from '../providers/contract/contract.service';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
@@ -11,7 +11,7 @@ import { OwnerModalComponent } from './owner-modal.component';
   styleUrls: ['./market-place.component.scss']
 })
 
-export class MarketPlaceComponent implements OnInit {
+export class MarketPlaceComponent implements OnInit, OnDestroy {
 
   public totalParticipant: Observable<number>;
   public participantArray: any[] = [];
@@ -29,31 +29,8 @@ export class MarketPlaceComponent implements OnInit {
   ) {
     this.purchaseSuccess = true;
     this.purchaseFailure = true;
-    // event for token purchased need to be configured.
-    this.contractService.tokenPurchased.subscribe((value: any) => {
-      console.log(value);
-      if (value != null) {
-        this.newOwner = value.name;
-        this.newPrice = value.newPrice.toString();
-        this.ref.detectChanges();
-      }
-    });
-    this.contractService.totalParticipant.subscribe((value) => {
-      this.participantArray = [];
-      for (let i = 0; i < parseInt(value, 10); i++) {
-        this.contractService.getParticipant(i).then(result => {
-          const participant: { name: string, price: string, owner: string } = { name: '', price: '', owner: '' };
-          participant.name = result[0];
-          participant.price = result[1].toString();
-          participant.owner = result[2];
-          this.participantArray.push(participant);
-          this.ref.detectChanges();
-          // return participant;
-          // console.log(result[0] + ' price is: ' + result[1].toString() + ' wei');
-        });
-      }
-      // console.log(this.participantArray);
-    });
+
+    this.loadTeams();
   }
 
   ngOnInit() {
@@ -62,7 +39,6 @@ export class MarketPlaceComponent implements OnInit {
       // console.log(balance);
     });
     this.totalParticipant = this.getTotalSupply();
-
     this.alerts.push({
       id: 1,
       type: 'success',
@@ -74,6 +50,42 @@ export class MarketPlaceComponent implements OnInit {
         icon: 'nc-bell-55'
       });
     this.backup = this.alerts.map((alert: IAlert) => Object.assign({}, alert));
+
+    // event for token purchased need to be configured.
+    this.contractService.tokenPurchased.subscribe((value: any) => {
+      if (value != null) {
+        this.newOwner = value.name;
+        this.newPrice = value.newPrice.toString();
+        if (!this.ref['destroyed']) {
+          this.ref.detectChanges();
+        }
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    // this.contractService.totalParticipant.unsubscribe();
+  }
+
+  loadTeams() {
+    this.contractService.totalParticipant.subscribe((value) => {
+      this.participantArray = [];
+      for (let i = 0; i < parseInt(value, 10); i++) {
+        this.contractService.getParticipant(i).then(result => {
+          const participant: { name: string, price: string, owner: string } = { name: '', price: '', owner: '' };
+          participant.name = result[0];
+          participant.price = result[1].toString();
+          participant.owner = result[2];
+          this.participantArray.push(participant);
+          if (!this.ref['destroyed']) {
+            this.ref.detectChanges();
+          }
+          // return participant;
+          // console.log(result[0] + ' price is: ' + result[1].toString() + ' wei');
+        });
+      }
+      // console.log(this.participantArray);
+    });
   }
 
   showPrice(id: number): any {

@@ -20,7 +20,14 @@ export class MyTeamsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAccount()
+  }
 
+  getAccount() {
+    const _this = this;
+    this.contractService.getAccount().then(result => {
+      // _this.account = result;
+    })
   }
 
   getTokensOfOwner() {
@@ -32,8 +39,7 @@ export class MyTeamsComponent implements OnInit {
           team.price = respose[1].toString();
           team.owner = respose[2];
           this.teams.push(team);
-          this.utilityService.etherToCurrency().subscribe( response => {
-            console.log(response);
+          this.utilityService.etherToCurrency().subscribe(response => {
             team.usdPrice = (Number((Number(team.price) / 1) * Number(response.USD))).toString();
             this.currentTotalWorth = this.currentTotalWorth + team.usdPrice;
           });

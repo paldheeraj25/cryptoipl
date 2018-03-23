@@ -9,7 +9,7 @@ declare let require: any;
 declare let window: any;
 
 const contractAbi = require('./contract.api.json');
-const ethAddress = '0xeaf3e3cf0978dbd6882df839e0ade317e6963745';
+const ethAddress = '0x2fbb4e77c2772952949e11ec818fc04dcfba801f';
 
 @Injectable()
 export class ContractService implements OnInit {
@@ -27,7 +27,6 @@ export class ContractService implements OnInit {
   }
 
   ngOnInit() {
-    // this.initializeWeb3();
   }
 
   initializeWeb3() {
@@ -41,7 +40,6 @@ export class ContractService implements OnInit {
     }
 
     this._contract = this._web3.eth.contract(contractAbi).at(ethAddress);
-    console.log(this._web3);
     // event handeling
     const tokenPurchased = this.tokenPurchased
     const _this = this;
@@ -149,9 +147,7 @@ export class ContractService implements OnInit {
   }
 
   public async tokensOfOwner(): Promise<any> {
-
     return new Promise((resolve, reject) => {
-      console.log(this._web3.eth.defaultAccount);
       this._contract.tokensOfOwner(this._web3.eth.defaultAccount,
         { from: this._web3.eth.defaultAccount, gas: 300000 },
         (err, result) => {
