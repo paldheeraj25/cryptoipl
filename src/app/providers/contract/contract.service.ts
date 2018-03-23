@@ -9,7 +9,7 @@ declare let require: any;
 declare let window: any;
 
 const contractAbi = require('./contract.api.json');
-const ethAddress = '0x2fbb4e77c2772952949e11ec818fc04dcfba801f';
+const ethAddress = '0xeaf3e3cf0978dbd6882df839e0ade317e6963745';
 
 @Injectable()
 export class ContractService implements OnInit {

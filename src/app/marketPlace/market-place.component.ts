@@ -21,6 +21,8 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
   public purchaseFailure: boolean;
   public newOwner: string;
   public newPrice: string;
+  timeInterval: any;
+  countDown: string;
 
   constructor(
     private contractService: ContractService,
@@ -29,7 +31,6 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
   ) {
     this.purchaseSuccess = true;
     this.purchaseFailure = true;
-
     this.loadTeams();
   }
 
@@ -63,9 +64,7 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    // this.contractService.totalParticipant.unsubscribe();
-  }
+  ngOnDestroy() { }
 
   loadTeams() {
     this.contractService.totalParticipant.subscribe((value) => {
@@ -77,6 +76,7 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
           participant.price = result[1].toString();
           participant.owner = result[2];
           this.participantArray.push(participant);
+          this.timer();
           if (!this.ref['destroyed']) {
             this.ref.detectChanges();
           }
@@ -141,6 +141,29 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
   }
   public closeFailureAlert() {
     this.purchaseFailure = true;
+  }
+
+  timer () {
+    const countDownDate = new Date('04/10/2018').getTime();
+    this.timeInterval = setInterval(function() {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const element = document.getElementById('0');
+      if (element) {
+        element.innerHTML = days + 'D ' + hours + 'H '
+        + minutes + 'M ' + seconds + 'S ';
+      }
+
+      const element2 = document.getElementById('1');
+      if (element2) {
+        element2.innerHTML = days + 'D ' + hours + 'H '
+        + minutes + 'M ' + seconds + 'S ';
+      }
+    }, 1000);
   }
 }
 

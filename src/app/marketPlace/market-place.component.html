@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="page-header page-header-xs" data-parallax="true">
+  <div class="page-header page-header-xs ball-bg" data-parallax="true">
     <div class="filter"></div>
   </div>
   <div class="container-section text-center p-r-21">
@@ -14,7 +14,6 @@
               <ng-container>
                 <i class="nc-icon nc-single-02"></i>
               </ng-container>
-
               Congratulation you are new Owner of {{newOwner}} and new price is {{newPrice}}.
               <button type="button" name="button" class="close" (click)="closeSuccessAlert()">
                 <i class="nc-icon nc-simple-remove"></i>
@@ -58,6 +57,43 @@
           </div> -->
         </div>
       </div>
+      <div class="col-lg-3 col-md-3" *ngFor="let participant of participantArray;let index = index">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top coming-soon-bg-opacity" src="assets/img/player/{{participant.name}}.jpg" alt="Card image cap">
+          <div class="card-body coming-soon-bg-opacity">
+            <p class="card-text">{{participant.name}}.</p>
+            <h5>
+              <b> {{participant.price | number: '1.4-4'}} ethers</b>
+            </h5>
+            <a class="btn btn-primary" placement="top" ngbPopover="" popoverTitle="{{participant.owner}}">Owner</a>
+            <a class="btn btn-primary">Buy</a>
+          </div>
+          <div class="coming-soon-container">
+            Coming Soon
+          </div>
+          <div class="timer-container" id="{{index}}">
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-lg-3 col-md-3">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top coming-soon-bg-opacity" src="assets/img/player/{{participant.name}}.jpg" alt="Card image cap">
+          <div class="card-body coming-soon-bg-opacity">
+            <p class="card-text">{{participantArray[1].name}}.</p>
+            <h5>
+              <b> {{participantArray[1].price | number: '1.4-4'}} ethers</b>
+            </h5>
+            <a class="btn btn-primary" placement="top" ngbPopover="" popoverTitle="{{participantArray[1].owner}}">Owner</a>
+            <a class="btn btn-primary">Buy</a>
+          </div>
+          <div class="coming-soon-container">
+            Coming Soon
+          </div>
+          <div class="timer-container">
+            {{countDown}}
+          </div>
+        </div>
+      </div> -->
     </div>
   </div>
 </div>
