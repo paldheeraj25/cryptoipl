@@ -5,34 +5,43 @@
                 <div class="row">
                     <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
                         <div class="card card-register">
+                            <p [hidden]="!saveSuccess">
+                                <ngb-alert [type]="'success'" [dismissible]="false">
+                                    <div class="container">
+                                        <button type="button" name="button" class="close" (click)="close()">
+                                            <i class="nc-icon nc-simple-remove"></i>
+                                        </button>
+                                        Data has been saved succesfully
+                                    </div>
+                                </ngb-alert>
+                            </p>
+                            <p [hidden]="!saveFailure">
+                                <ngb-alert [type]="'danger'" [dismissible]="false">
+                                    <div class="container">
+                                        <button type="button" name="button" class="close" (click)="close()">
+                                            <i class="nc-icon nc-simple-remove"></i>
+                                        </button>
+                                        Could not save your data now. Please try again after some time
+                                    </div>
+                                </ngb-alert>
+                            </p>
                             <h3 class="title">Welcome</h3>
-                            <div class="social-line text-center">
-                                <a href="#pablo" class="btn btn-neutral btn-facebook btn-just-icon">
-                                    <i class="fa fa-facebook-square"></i>
-                                </a>
-                                <a href="#pablo" class="btn btn-neutral btn-google btn-just-icon">
-                                    <i class="fa fa-google-plus"></i>
-                                </a>
-                                <a href="#pablo" class="btn btn-neutral btn-twitter btn-just-icon">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </div>
                             <form class="register-form">
-                                <label>Email</label>
-                                <input type="text" class="form-control" placeholder="Email">
+                                <label>Wallet Address</label>
+                                <label class="wallet-address">{{user.wallet}}</label>
 
-                                <label>Password</label>
-                                <input type="password" class="form-control" placeholder="Password">
-                                <button class="btn btn-danger btn-block btn-round">Register</button>
+                                <label>Email</label>
+                                <input type="text" class="form-control" name="email" [(ngModel)]="user.email" placeholder="Email">
+                                
+                                <button class="btn btn-danger btn-block btn-round" (click)="saveInfo()">Save account info</button>
                             </form>
-                            <div class="forgot">
-                                <a href="#" class="btn btn-link btn-danger">Forgot password?</a>
-                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="footer register-footer text-center">
-                    <h6>&copy;{{test | date: 'yyyy'}}, made with <i class="fa fa-heart heart"></i> by Creative Tim</h6>
+                    <label>*Make sure to save your MetaMask login information and account recovery details!
+                         We can’t help you regain access if you lose it</label>
+                    <label>*Registering email id helps us send you notifications about all the transactions of your teams</label>
                 </div>
             </div>
     </div>
