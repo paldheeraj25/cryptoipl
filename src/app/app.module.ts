@@ -17,6 +17,7 @@ import { HomeModule } from './home/home.module';
 import { MarketPlaceComponent } from './marketPlace/market-place.component';
 // services
 import { ContractService } from './providers/contract/contract.service';
+import { RegisterService } from './signup/register.service';
 import { UtilityService } from './providers/utility.service';
 
 import { OwnerModalComponent } from './marketPlace/owner-modal.component';
@@ -46,7 +47,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HomeModule
   ],
-  providers: [ContractService, UtilityService],
+  providers: [ContractService, RegisterService, UtilityService],
   bootstrap: [AppComponent],
   entryComponents: [
     OwnerModalComponent,
