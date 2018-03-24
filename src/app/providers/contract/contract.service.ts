@@ -4,12 +4,13 @@ import * as Web3 from 'web3';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { UtilityService } from '../utility.service';
 
 declare let require: any;
 declare let window: any;
 
 const contractAbi = require('./contract.api.json');
-const ethAddress = '0xeaf3e3cf0978dbd6882df839e0ade317e6963745';
+const contractAddress = '0x358533a2873f63a4ad64d1148ec362e5b1956e7c';
 
 @Injectable()
 export class ContractService implements OnInit {
@@ -22,7 +23,7 @@ export class ContractService implements OnInit {
   public tokenPurchased: any = new BehaviorSubject(null);
   public totalParticipant: any = new BehaviorSubject(null);
 
-  constructor() {
+  constructor(private utilityService: UtilityService) {
     this.initializeWeb3();
   }
 
@@ -39,7 +40,10 @@ export class ContractService implements OnInit {
       this._web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
     }
 
-    this._contract = this._web3.eth.contract(contractAbi).at(ethAddress);
+    this._contract = this._web3.eth.contract(contractAbi).at(contractAddress);
+  }
+
+  public watcTokenSold() {
     // event handeling
     const tokenPurchased = this.tokenPurchased
     const _this = this;
@@ -48,6 +52,9 @@ export class ContractService implements OnInit {
         // console.log('new owner:', result.args);
         result.args.newPrice = _this._web3.fromWei(result.args.newPrice, 'ether');
         tokenPurchased.next(result.args);
+        _this.utilityService.sendEmail(result.args).subscribe(mailResult => {
+          console.log(mailResult);
+        });
       } else {
         // console.error('error: ' + error);
       }
@@ -116,6 +123,7 @@ export class ContractService implements OnInit {
           if (err != null) {
             return reject(err);
           }
+          this.watcTokenSold();
           return resolve(result);
         });
     }) as Promise<any>;

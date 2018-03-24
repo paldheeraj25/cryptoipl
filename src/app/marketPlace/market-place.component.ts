@@ -3,7 +3,7 @@ import { ContractService } from '../providers/contract/contract.service';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import { OwnerModalComponent } from './owner-modal.component';
-
+import { UtilityService } from '../providers/utility.service';
 
 @Component({
   selector: 'app-market-place',
@@ -21,13 +21,15 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
   public purchaseFailure: boolean;
   public newOwner: string;
   public newPrice: string;
+  public etherScan: string;
   timeInterval: any;
   countDown: string;
 
   constructor(
     private contractService: ContractService,
     private ref: ChangeDetectorRef,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private userService: UtilityService,
   ) {
     this.purchaseSuccess = true;
     this.purchaseFailure = true;
@@ -97,7 +99,8 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
 
   buyParticipant(index: number, price: number) {
     return this.contractService.buyParticipant(index, price).then(result => {
-      // console.log(result);
+      console.log(result);
+      this.etherScan = 'https://etherscan.io/address/' + result;
       this.purchaseSuccess = false;
     }).catch(error => {
       console.log(error);
@@ -143,9 +146,9 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
     this.purchaseFailure = true;
   }
 
-  timer () {
+  timer() {
     const countDownDate = new Date('04/10/2018').getTime();
-    this.timeInterval = setInterval(function() {
+    this.timeInterval = setInterval(function () {
       const now = new Date().getTime();
       const distance = countDownDate - now;
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -155,13 +158,13 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
       const element = document.getElementById('0');
       if (element) {
         element.innerHTML = days + 'D ' + hours + 'H '
-        + minutes + 'M ' + seconds + 'S ';
+          + minutes + 'M ' + seconds + 'S ';
       }
 
       const element2 = document.getElementById('1');
       if (element2) {
         element2.innerHTML = days + 'D ' + hours + 'H '
-        + minutes + 'M ' + seconds + 'S ';
+          + minutes + 'M ' + seconds + 'S ';
       }
     }, 1000);
   }

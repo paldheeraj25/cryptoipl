@@ -15,4 +15,8 @@ export class UtilityService {
     return this.http.get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR');
   }
 
+  sendEmail(mailObject: any): Observable<any> {
+    const mailApi = 'https://jsonplaceholder.typicode.com/posts';
+    return this.http.post(mailApi, mailObject);
+  }
 }
