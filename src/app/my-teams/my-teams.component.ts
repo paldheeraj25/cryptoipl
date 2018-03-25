@@ -41,7 +41,7 @@ export class MyTeamsComponent implements OnInit {
           this.teams.push(team);
           this.utilityService.etherToCurrency().subscribe(response => {
             team.usdPrice = (Number((Number(team.price) / 1) * Number(response.USD))).toString();
-            this.currentTotalWorth = this.currentTotalWorth + team.usdPrice;
+            this.currentTotalWorth = Number(this.currentTotalWorth) + Number(team.usdPrice);
           });
         });
       }

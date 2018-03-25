@@ -71,7 +71,7 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
   loadTeams() {
     this.contractService.totalParticipant.subscribe((value) => {
       this.participantArray = [];
-      for (let i = 0; i < parseInt(value, 10); i++) {
+      for (let i = 0; i <= parseInt(value, 10); i++) {
         this.contractService.getParticipant(i).then(result => {
           const participant: { name: string, price: string, owner: string } = { name: '', price: '', owner: '' };
           participant.name = result[0];
@@ -84,6 +84,8 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
           }
           // return participant;
           // console.log(result[0] + ' price is: ' + result[1].toString() + ' wei');
+        }).catch(error => {
+          console.log(error);
         });
       }
       // console.log(this.participantArray);
