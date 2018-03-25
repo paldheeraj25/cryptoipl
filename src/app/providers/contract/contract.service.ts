@@ -10,7 +10,7 @@ declare let require: any;
 declare let window: any;
 
 const contractAbi = require('./contract.api.json');
-const contractAddress = '0x358533a2873f63a4ad64d1148ec362e5b1956e7c';
+const contractAddress = '0x1c8fe23ca81909727d75bb1d332ff2806ffedf8b';
 
 @Injectable()
 export class ContractService implements OnInit {
@@ -51,6 +51,7 @@ export class ContractService implements OnInit {
       if (!error) {
         // console.log('new owner:', result.args);
         result.args.newPrice = _this._web3.fromWei(result.args.newPrice, 'ether');
+        result.args.oldPrice = _this._web3.fromWei(result.args.oldPrice, 'ether');
         tokenPurchased.next(result.args);
         _this.utilityService.sendEmail(result.args).subscribe(mailResult => {
           console.log(mailResult);
