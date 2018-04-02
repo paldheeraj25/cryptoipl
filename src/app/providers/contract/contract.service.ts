@@ -10,7 +10,7 @@ declare let require: any;
 declare let window: any;
 
 const contractAbi = require('./contract.api.json');
-const contractAddress = '0x1c8fe23ca81909727d75bb1d332ff2806ffedf8b';
+const contractAddress = '0x140d2880ad9d6a4B7c1eaebC4e80CE23D43A7534';
 
 @Injectable()
 export class ContractService implements OnInit {
