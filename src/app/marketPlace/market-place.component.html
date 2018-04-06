@@ -28,7 +28,6 @@
               <ng-container>
                 <i class="nc-icon nc-bell-55"></i>
               </ng-container>
-
               Your transaction is failed, check your transaction detail in metamask or if you already own the team.
               <button type="button" name="button" class="close" (click)="closeFailureAlert()">
                 <i class="nc-icon nc-simple-remove"></i>
@@ -39,7 +38,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-3" *ngFor="let participant of participantArray;let i = index">
+      <div class="col-lg-3" *ngFor="let participant of participantArray;let i = index" [hidden]=true>
         <div class="card" style="width: 18rem;">
           <img class="card-img-top" src="assets/img/player/{{participant.name}}.jpg" alt="Card image cap">
           <div class="card-body">
@@ -58,7 +57,7 @@
           </div> -->
         </div>
       </div>
-      <div class="col-lg-3 col-md-3" *ngFor="let participant of participantArray;let index = index">
+      <div class="col-lg-3 col-md-3" *ngFor="let participant of comingsoonColl;let index = index">
         <div class="card" style="width: 18rem;">
           <img class="card-img-top coming-soon-bg-opacity" src="assets/img/player/{{participant.name}}.jpg" alt="Card image cap">
           <div class="card-body coming-soon-bg-opacity">
@@ -76,25 +75,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="col-lg-3 col-md-3">
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top coming-soon-bg-opacity" src="assets/img/player/{{participant.name}}.jpg" alt="Card image cap">
-          <div class="card-body coming-soon-bg-opacity">
-            <p class="card-text">{{participantArray[1].name}}.</p>
-            <h5>
-              <b> {{participantArray[1].price | number: '1.4-4'}} ethers</b>
-            </h5>
-            <a class="btn btn-primary" placement="top" ngbPopover="" popoverTitle="{{participantArray[1].owner}}">Owner</a>
-            <a class="btn btn-primary">Buy</a>
-          </div>
-          <div class="coming-soon-container">
-            Coming Soon
-          </div>
-          <div class="timer-container">
-            {{countDown}}
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
 </div>

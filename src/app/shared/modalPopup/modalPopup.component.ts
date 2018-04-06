@@ -7,7 +7,8 @@ import { ContractService } from '../../providers/contract/contract.service';
   templateUrl: './modal-popup.component.html',
 })
 export class ModalPopupComponent implements OnInit {
-  @Input() teams: any;
+  @Input() header: any;
+  @Input() description: any;
 
   myTeam: any[] = [];
 
@@ -18,17 +19,5 @@ export class ModalPopupComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    for (let i of this.teams) {
-      this.contractService.getParticipant(i).then(result => {
-        const participant: { name: string, price: string, owner: string } = { name: '', price: '', owner: '' };
-        participant.name = result[0];
-        participant.price = result[1].toString();
-        participant.owner = result[2];
-        this.myTeam.push(participant);
-        this.ref.detectChanges();
-        // console.log(result[0] + ' price is: ' + result[1].toString() + ' wei');
-      });
-    }
-  }
+  ngOnInit() { }
 }

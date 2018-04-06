@@ -15,6 +15,7 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
 
   public totalParticipant: Observable<number>;
   public participantArray: any[] = [];
+  public comingsoonColl: any[] = [];
   public alerts: Array<IAlert> = [];
   private backup: Array<IAlert>;
   public purchaseSuccess: boolean;
@@ -82,13 +83,11 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
           if (!this.ref['destroyed']) {
             this.ref.detectChanges();
           }
-          // return participant;
-          // console.log(result[0] + ' price is: ' + result[1].toString() + ' wei');
+          this.comingsoonColl[0] = this.participantArray[0];
         }).catch(error => {
           console.log(error);
         });
       }
-      // console.log(this.participantArray);
     });
   }
 
@@ -149,8 +148,8 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
   }
 
   timer() {
-    const countDownDate = new Date('04/10/2018').getTime();
-    this.timeInterval = setInterval(function () {
+    const countDownDate = new Date('04/13/2018').getTime();
+    const timeInterval = setInterval( () => {
       const now = new Date().getTime();
       const distance = countDownDate - now;
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -167,6 +166,12 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
       if (element2) {
         element2.innerHTML = days + 'D ' + hours + 'H '
           + minutes + 'M ' + seconds + 'S ';
+      }
+
+      if (distance === 0) {
+        clearInterval(timeInterval);
+        // this.participantArray[this.participantArray.length] = this.comingsoonColl[0];
+        this.comingsoonColl = [];
       }
     }, 1000);
   }
