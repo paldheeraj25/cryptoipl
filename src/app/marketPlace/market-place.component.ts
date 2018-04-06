@@ -38,7 +38,6 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // console.log('inside market place component');
     this.contractService.getUserBalance().then(balance => {
       // console.log(balance);
     });
@@ -94,7 +93,6 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
   showPrice(id: number): any {
     this.contractService.getParticipant(id).then(result => {
       // console.log(result);
-      // console.log(result[0] + ' price is: ' + result[1].toString() + ' wei');
     });
   }
 
@@ -111,8 +109,6 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
 
   getTotalSupply(): any {
     return this.contractService.totalSupply().then(result => {
-      // console.log('inside getTotalSupply');
-      // console.log(result.toString());
       return result;
     });
   }
@@ -125,18 +121,15 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
       participant.owner = result[2];
       console.log(participant);
       return participant;
-      // console.log(result[0] + ' price is: ' + result[1].toString() + ' wei');
     });
   }
 
   showOwner(owner: string) {
-    // OwnerModalComponent
     const modalRef = this.modalService.open(OwnerModalComponent);
     modalRef.componentInstance.address = owner;
   }
 
   payout(): any {
-    // call payout method in contract.
     this.contractService.payout();
   }
 
@@ -170,7 +163,6 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
 
       if (distance === 0) {
         clearInterval(timeInterval);
-        // this.participantArray[this.participantArray.length] = this.comingsoonColl[0];
         this.comingsoonColl = [];
       }
     }, 1000);

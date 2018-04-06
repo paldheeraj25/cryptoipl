@@ -24,6 +24,7 @@ import { OwnerModalComponent } from './marketPlace/owner-modal.component';
 import { ModalPopupComponent } from './shared/modalPopup/modalPopup.component';
 import { MyTeamsComponent } from './my-teams/my-teams.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FaqsComponent } from './faqs/faqs.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     MarketPlaceComponent,
     OwnerModalComponent,
     ModalPopupComponent,
-    MyTeamsComponent
+    MyTeamsComponent,
+    FaqsComponent
   ],
   imports: [
     BrowserModule,

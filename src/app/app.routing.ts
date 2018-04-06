@@ -10,6 +10,7 @@ import { LandingComponent } from './landing/landing.component';
 import { NucleoiconsComponent } from './components/nucleoicons/nucleoicons.component';
 import { MarketPlaceComponent } from './marketPlace/market-place.component';
 import { MyTeamsComponent } from './my-teams/my-teams.component';
+import { FaqsComponent } from './faqs/faqs.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'nucleoicons', component: NucleoiconsComponent },
   { path: 'market-place', component: MarketPlaceComponent },
   { path: 'my-teams', component: MyTeamsComponent },
+  { path: 'faqs', component:  FaqsComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
