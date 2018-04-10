@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
@@ -49,7 +50,10 @@ import { FaqsComponent } from './faqs/faqs.component';
     AppRoutingModule,
     HomeModule
   ],
-  providers: [ContractService, RegisterService, UtilityService],
+  providers: [ContractService,
+    RegisterService, UtilityService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     OwnerModalComponent,
