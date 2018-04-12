@@ -141,7 +141,7 @@ export class MarketPlaceComponent implements OnInit, OnDestroy {
   }
 
   timer() {
-    const countDownDate = new Date('04/13/2018').getTime();
+    const countDownDate = new Date('04/15/2018').getTime();
     const timeInterval = setInterval( () => {
       const now = new Date().getTime();
       const distance = countDownDate - now;
